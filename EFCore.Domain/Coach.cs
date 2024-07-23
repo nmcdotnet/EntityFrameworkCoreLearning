@@ -1,8 +1,8 @@
 ﻿namespace EFCore.Domain
 {
-    public class Team :BaseDomainModel
+    public class Coach : BaseDomainModel
     {
-        public int TeamId { get; set; } 
+        public int CoachId { get; set; }
         public string? Name { get; set; }
     }
 }
