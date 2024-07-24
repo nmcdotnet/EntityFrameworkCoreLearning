@@ -16,7 +16,7 @@ async Task FilterQuery()
 }
 
 
-#region Not use
+#region Functions List
 //await GetAllTeam();
 async Task SelectSingleRecord()
 {
