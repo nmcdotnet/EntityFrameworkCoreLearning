@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore.Data", "EFCore.Data\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore.Domain", "EFCore.Domain\EFCore.Domain.csproj", "{99A83512-C8B8-470B-83E7-7F29916096E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore.Console", "EFCore.Console\EFCore.Console.csproj", "{2EADE417-CE04-40A0-9CB2-45D691BF6E2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore.Console", "EFCore.Console\EFCore.Console.csproj", "{2EADE417-CE04-40A0-9CB2-45D691BF6E2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
