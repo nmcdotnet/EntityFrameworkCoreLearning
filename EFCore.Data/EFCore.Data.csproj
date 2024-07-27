@@ -4,10 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <LocalAppDataFolder>$(USERPROFILE)\AppData\Local</LocalAppDataFolder>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\Documents\Notes.docx" Link="Notes.docx" />
+    <None Include="$(LocalAppDataFolder)\FootballLeage_EfCore.db" Link="FootballLeage_EfCore.db" />
   </ItemGroup>
 
   <ItemGroup>

@@ -30,18 +30,21 @@ namespace EFCore.Data
                 {
                     TeamId = 1,
                     Name = "Tivoli Gardens FC",
+                    Level = "City",
                     CreatedDate = DateTime.Now,
                 },
                 new Team
                 {
                     TeamId = 2,
                     Name = "Waterhouse FC",
+                    Level = "City",
                     CreatedDate = DateTime.Now,
                 },
                 new Team
                 {
                     TeamId = 3,
                     Name = "Humble Lions FC",
+                    Level = "Nation",
                     CreatedDate = DateTime.Now,
                 }
                 ); 
