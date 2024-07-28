@@ -1,13 +1,96 @@
 ﻿
 using EFCore.Data;
-using Microsoft.EntityFrameworkCore; ;
+using EFCore.Domain;
+using Microsoft.EntityFrameworkCore;
+;
 
 using var context = new FootballLeageDbContext();
 
 
-//await GetAllTeamWithSelect();
-await GetAllTeam();
+await DeleteData();
 
+async Task DeleteData()
+{
+    var coach = await context.Coachs.FindAsync(5); 
+    // context.Coachs.Remove(coach); //  way 1
+    context.Entry(coach).State = EntityState.Deleted; // way 2
+    context.SaveChanges();
+}
+
+async Task UpdateData()
+{
+    var coach = await context.Coachs
+        .AsNoTracking()
+        .FirstOrDefaultAsync(c=>c.CoachId==5);
+    if(coach != null)
+    {
+        Console.WriteLine($"Coach found: {coach.Name}");
+    }
+   
+    coach.Name = "Mr.Johnson";
+
+    //context.Update(coach); // solution
+    
+    context.Entry(coach).State = EntityState.Modified; // Alternative way
+
+    await context.SaveChangesAsync();
+
+    Console.WriteLine($"Coach after changed: {coach.Name}");
+}
+
+async Task BatchInsert()
+{
+    var coach = new Coach()
+    {
+        Name = "Jose Mourinho",
+        CreatedDate = DateTime.Now,
+    };
+    var newCoach1 = new Coach()
+    {
+        Name = "Theodore Whitmore",
+        CreatedDate = DateTime.Now,
+
+    };
+    // add to list
+    var listCoachs = new List<Coach>()
+{
+    coach, newCoach1
+};
+
+    await context.Coachs.AddRangeAsync(listCoachs);
+    await context.SaveChangesAsync();
+}
+
+async Task BasicInsert()
+{
+    var coach = new Coach()
+    {
+        Name = "Jose Mourinho",
+        CreatedDate = DateTime.Now,
+    };
+    var newCoach1 = new Coach()
+    {
+        Name = "Theodore Whitmore",
+        CreatedDate = DateTime.Now,
+
+    };
+    // add to list
+    var listCoachs = new List<Coach>()
+{
+    coach, newCoach1
+};
+
+    // add by loop
+    foreach (var c in listCoachs)
+    {
+        await context.Coachs.AddAsync(c);
+    }
+
+    // view change 
+    Console.WriteLine(context.ChangeTracker.DebugView.LongView);
+    await context.SaveChangesAsync();
+    Console.WriteLine(context.ChangeTracker.DebugView.LongView);
+}
 
 async Task SkipAndTakeMethod()
 {
@@ -100,11 +183,17 @@ async Task GetAllTeam()
 
 async Task GetAllTeamWithSelect()
 {
-    var teamNameList = await context.Teams
-        .Select(t => t.Name)
+    var teamsInfo = await context.Teams
+        .Select(t => new TeamInfo  { Name = t.Name , CreatedDate =  t.CreatedDate})
         .ToListAsync();
-    foreach(var name in teamNameList)
+    foreach(TeamInfo team in teamsInfo)
     {
-        await Console.Out.WriteLineAsync(name);
+        await Console.Out.WriteLineAsync("Teams Info: "+ team.Name+ "-" + team.CreatedDate);
     }
+}
+
+public class TeamInfo
+{
+    public string? Name { get; set; }
+    public DateTime CreatedDate { get; set; }
 }
